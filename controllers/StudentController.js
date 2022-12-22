@@ -1,4 +1,5 @@
-import { student} from "../data/student";
+const student = require("../data/student");
+
 
 class studentControllers {
 
@@ -9,25 +10,39 @@ class studentControllers {
             'message':'Menampilkan data students',
             'data' : student
         };
+
         res.json(data);
     }
-    store(req,res){ 
-        const {nama} =req.body
 
-        const push = student.push(nama);
+    store(req,res){ 
+
+        const {nama,id} =req.body;
+
+        student.push({
+            "nama": nama,
+            "id": student.length + 1,
+          });
 
         const data = {
-            'message':`menambah data user ${nama}`,
-            'data' : push
+            'message':`menambah data user : nama : ${nama} id : ${id}`,
+            'data' : student[student.length - 1]
         }
         res.json(data)
     }
     update(req,res){
-        const {id} = req.params;
+        const {id} = req.params
         const {nama} =req.body;
+
+        for(let i = 0 ; i < student.length ; i++){
+            if(student[i].id == id && student[i].nama == nama ){
+                
+            }
+        }
+        
+
         const data = {
             'message':`Mengubah data student ke ${id} yang namanya ${nama}`,
-            'data' :[]
+            'data' : student
         }
         res.json(data)
     }
