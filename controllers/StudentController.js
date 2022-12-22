@@ -1,19 +1,24 @@
+import { student} from "../data/student";
+
 class studentControllers {
 
-    
+    //Menampilkan data student
     index(req,res){
-        const arr = ['labib','dimas','rio']
+    
         const data = {
             'message':'Menampilkan data students',
-            'data' : arr
-        }
+            'data' : student
+        };
         res.json(data);
     }
-    store(req,res){
+    store(req,res){ 
         const {nama} =req.body
+
+        const push = student.push(nama);
+
         const data = {
             'message':`menambah data user ${nama}`,
-            'data' :[nama]
+            'data' : push
         }
         res.json(data)
     }
