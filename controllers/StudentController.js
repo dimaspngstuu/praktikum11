@@ -1,14 +1,16 @@
 const student = require("../data/student");
+const studentModels = require('../model/student')
 
 
 class studentControllers {
 
     //Menampilkan data student
-    index(req,res){
-    
+   
+    async index(req,res){
+        const studentAll = await studentModels.all();
         const data = {
             'message':'Menampilkan data students',
-            'data' : student
+            'data' : studentAll
         };
 
         res.json(data);
@@ -35,14 +37,17 @@ class studentControllers {
 
         for(let i = 0 ; i < student.length ; i++){
             if(student[i].id == id && student[i].nama == nama ){
-                
+                student[i].nama = nama;
+                student = student[i];
             }
         }
         
 
         const data = {
-            'message':`Mengubah data student ke ${id} yang namanya ${nama}`,
-            'data' : student
+
+        'message':`Mengubah data student ke dengan id : ${id} menjadi ${nama}`,
+
+        'data' : student
         }
         res.json(data)
     }
